@@ -1,0 +1,38 @@
+.pdf-page {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  $bgc: rgb(255, 245, 233);
+  .header {
+    height: 44px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    background-color: $bgc;
+    align-items: center;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    .go-back {
+      cursor: pointer;
+      font-size: 20px;
+    }
+  }
+  .pdf {
+    flex: 1;
+    overflow: auto;
+  }
+  .footer {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    background-color: $bgc;
+    .page-num {
+      padding: 0.4rem;
+      width: 80px;
+    }
+  }
+}
