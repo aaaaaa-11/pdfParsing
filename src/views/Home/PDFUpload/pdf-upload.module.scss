@@ -1,0 +1,19 @@
+.upload {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  background-color: rgb(246, 245, 245);
+  border-radius: 4px;
+  border: 1px dashed #333;
+  margin: 20vh auto 5vh;
+  &-file {
+    width: 0;
+  }
+  &-info {
+    color: rgb(105, 105, 105);
+  }
+}
+
+.view-btn {
+  width: 120px;
+}
