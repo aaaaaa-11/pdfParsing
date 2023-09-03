@@ -13,6 +13,24 @@ body,
   color: #fff;
   font-size: 18px;
   padding: 0 20px;
+  &-green {
+    background-color: rgb(33, 207, 97);
+    &:disabled {
+      background-color: rgb(174, 245, 215);
+    }
+  }
+  &-yellow {
+    background-color: rgb(248, 208, 33);
+    &:disabled {
+      background-color: rgb(244, 245, 174);
+    }
+  }
+  &-red {
+    background-color: rgb(207, 50, 33);
+    &:disabled {
+      background-color: rgb(245, 174, 174);
+    }
+  }
   &-blue {
     background-color: rgb(5, 179, 237);
     &:disabled {

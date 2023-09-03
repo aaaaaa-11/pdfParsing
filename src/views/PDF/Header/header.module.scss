@@ -1,0 +1,15 @@
+$bgc: rgb(255, 245, 233);
+.header {
+  height: 44px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  background-color: $bgc;
+  align-items: center;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  .go-back {
+    cursor: pointer;
+    font-size: 20px;
+  }
+}

@@ -1,8 +1,12 @@
-import { useEffect, useState } from 'react';
-import './pdf.scss';
+import { useEffect, useRef, useState } from 'react';
+import Header from './Header';
+import Footer from './Footer';
+import classes from './pdf.module.scss';
+import Dialog from './Dialog';
 
-function PDF(props) {
+function PDF({ pdfUrl, closePDF }) {
   const [pdf, setPdf] = useState();
+  const [showDialog, setShowDialog] = useState(true)
   const [pdfText, setPdfText] = useState();
   const [hasPDF, setHasPDF] = useState(false);
   const [pages, setPages] = useState({
@@ -10,9 +14,14 @@ function PDF(props) {
     total: 1,
   });
 
+  const pageNumRef = useRef()
+
+
   useEffect(() => {
+    setShowDialog(true)
     // 根据父组件url获取pdf
-    props.url && openPDF(props.url);
+    pdfUrl && openPDF(pdfUrl);
+    pageNumRef.current.value = 1
 
     return () => {
       // 清除canvas
@@ -21,13 +30,12 @@ function PDF(props) {
         const context = canvas.getContext('2d');
         context.clearRect(0, 0, canvas.width, canvas.height);
         console.log('clear');
-        cancel()
       }
     };
   }, []);
 
   useEffect(() => {
-    console.log('pdf page change');
+      console.log('pdf page change');
     // 切换页面 || 第一次进来，渲染pdf
     pdf && renderPage();
   }, [pages.num, hasPDF]);
@@ -60,6 +68,7 @@ function PDF(props) {
         viewport: viewport,
       };
       page.render(renderContext);
+      setShowDialog(false)
     });
   };
 
@@ -68,6 +77,7 @@ function PDF(props) {
     console.log('openPDF');
     const loadingTask = pdfjsLib.getDocument(url);
     loadingTask.promise.then(function (pdf) {
+      console.log('set pdf');
       setPdf(pdf);
       setHasPDF(true);
       setPages({
@@ -76,78 +86,40 @@ function PDF(props) {
       });
     }).catch(e => {
       alert('加载pdf失败，确认后跳回首页')
-      props.close()
+      closePDF()
     });
   };
 
   // 切页面
-  const changePage = (num) => {
+  const changePageNum = (num) => {
     console.log('changePage');
     setPages(() => ({
       ...pages,
       num
     }))
+    pageNumRef.current.value = num;
   }
 
   // 修改页码
-  const changePageNum = (e) => {
-    const num = +e.target.value
+  const setPageNum = () => {
+    const num = +pageNumRef.current.value
     if (num > pages.total) {
       console.log('The maximum page number is exceeded');
-      e.target.value = pages.num
     } else {
-      num && changePage(num)
+      num && changePageNum(num)
     }
-  }
-
-  // 语音播报
-  const speech = () => {
-    if (pdfText) {
-      const speech = new SpeechSynthesisUtterance()
-      speech.text = pdfText
-      speechSynthesis.speak(speech);
-    } else {
-      console.log('未识别到文字');
-    }
-  }
-
-  // 暂停
-  function pause() {
-    speechSynthesis.pause()
-  }
-  // 继续播放
-  function resume() {
-    speechSynthesis.resume()
-  }
-
-  // 取消播放
-  function cancel() {
-    speechSynthesis.cancel()
   }
 
   return (
-    <div className="pdf-page">
-      <header className="header">
-        <span className='go-back' onClick={props.close}>&lt;</span>
-        <div className="speech-tools">
-          <button onClick={speech}>语音播报</button>
-          <button onClick={pause}>暂停</button>
-          <button onClick={resume}>继续</button>
-          <button onClick={cancel}>取消</button>
-        </div>
-      </header>
-      <div className="pdf">
+    <div className={classes['pdf-page']}>
+      <Header pdfText={pdfText} closePDF={closePDF} pageNum={pages.num} />
+      <div className={classes.pdf}>
+        {
+          showDialog ? <Dialog /> : null
+        }
         <canvas id="pdf-container"></canvas>
       </div>
-      <footer className="footer">
-        <button className="btn btn-white" disabled={pages.num < 2} onClick={() => changePage(pages.num - 1)}>
-          &lt; 上一页
-        </button>
-        <input className='input page-num' type="number" value={pages.num} max={pages.total} onChange={changePageNum} />
-        <button className="btn btn-white" disabled={pages.num >= pages.total} onClick={() => changePage(pages.num + 1)}>
-          下一页 &gt;
-        </button>
-      </footer>
+      <Footer ref={pageNumRef} changePageNum={changePageNum} setPageNum={setPageNum} pages={pages} />
     </div>
   );
 }

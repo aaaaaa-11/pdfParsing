@@ -18,7 +18,7 @@ function App() {
   return (
     <>
       {
-        showPdf ? <PDF url={pdfUrl} close={closePDF} /> : <Home openPDF={openPDF} />
+        showPdf ? <PDF pdfUrl={pdfUrl} closePDF={closePDF} /> : <Home openPDF={openPDF} />
       }
     </>
   );

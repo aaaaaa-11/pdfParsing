@@ -1,0 +1,13 @@
+$bgc: rgb(255, 245, 233);
+.footer {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  background-color: $bgc;
+  .page-num {
+    padding: 0.4rem;
+    width: 80px;
+  }
+}
