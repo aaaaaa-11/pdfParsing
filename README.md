@@ -10,6 +10,12 @@ react18 + pdf.js
 
 In the project directory, you can run:
 
+### `bash deploment.sh`
+
+把项目部署到线上
+
+[预览](https://aaaaaa-11.github.io/pdfParsing/)
+
 ### `npm start`
 
 Runs the app in the development mode.\

@@ -9,7 +9,7 @@ function PDFList(props) {
       {
         id: 1,
         title: '测试.pdf',
-        url: '/测试.pdf'
+        url: '/pdfParsing/测试.pdf'
       },
     ])
   }, [])
