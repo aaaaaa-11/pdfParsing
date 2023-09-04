@@ -5,7 +5,6 @@ const Dialog = () => {
   const [dots, setDots] = useState([])
 
   useEffect(() => {
-    console.log('render');
     let timer = setInterval(() => {
       setDots((prevDots) => (
         prevDots.length >= 3 ? [0] : [...prevDots, prevDots.length]
@@ -13,7 +12,6 @@ const Dialog = () => {
     }, 1000)
 
     return () => {
-      console.log('clear');
       clearInterval(timer)
     }
   }, [])

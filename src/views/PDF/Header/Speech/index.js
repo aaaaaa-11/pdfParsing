@@ -15,22 +15,21 @@ function Speech({ pdfText, pageNum }) {
   const [currentStatus, setCurrentStatus] = useState(0)
 
   useEffect(() => {
-    return () => {
-      speechInstance &&  speechInstance.removeEventListener('end', cancel)
-      cancel()
-    }
-  }, [])
-
-  useEffect(() => {
     cancel()
   }, [pageNum])
 
   // 语音播报
   const speech = () => {
-    const speechInstance = new SpeechSynthesisUtterance()
+    if (!speechInstance) {
+      speechInstance = new SpeechSynthesisUtterance()
+      // 播报结束后，重设状态
+      // 注意：暂停后一段时间，也会触发end事件
+      speechInstance.onend = (event) => {
+        setCancelStatus()
+      }
+    }
     speechInstance.text = pdfText
     speechSynthesis.speak(speechInstance);
-    speechInstance.addEventListener('end', cancel)
     setCurrentStatus(1)
   }
 
@@ -48,15 +47,19 @@ function Speech({ pdfText, pageNum }) {
   // 取消播放
   function cancel() {
     speechSynthesis.cancel()
+    setCancelStatus()
+  }
+
+  function setCancelStatus () {
     setCurrentStatus(0)
   }
 
+  // 播放、暂停、继续按钮显示逻辑：
   let speechBtn
 
   if (currentStatus === 0) {
     speechBtn = <button className='btn btn-green' disabled={!pdfText} onClick={speech}>语音播报</button>
   }
-
 
   if (currentStatus === 1) {
     speechBtn = <button className='btn btn-red' onClick={pause}>暂停</button>
@@ -64,7 +67,6 @@ function Speech({ pdfText, pageNum }) {
   if (currentStatus === 2) {
     speechBtn = <button className='btn btn-yellow' onClick={resume}>继续</button>
   }
-  // console.log(pdfText, currentStatus, speechBtn);
 
   return (
     <div className={classes.speech}>
