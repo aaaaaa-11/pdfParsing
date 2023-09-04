@@ -111,6 +111,7 @@ function PDFPage({ pdfUrl, closePDF }) {
     const num = +pageNumRef.current.value
     if (num > pages.total) {
       console.log('The maximum page number is exceeded');
+      pageNumRef.current.value = pages.num
     } else {
       num && changePageNum(num)
     }
