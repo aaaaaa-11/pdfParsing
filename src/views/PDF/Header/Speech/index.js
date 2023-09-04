@@ -8,12 +8,15 @@ import classes from './speech.module.scss'
   3: 继续,
   4: 取消
 */
+
 function Speech({ pdfText, pageNum }) {
+  let speechInstance;
 
   const [currentStatus, setCurrentStatus] = useState(0)
 
   useEffect(() => {
     return () => {
+      speechInstance &&  speechInstance.removeEventListener('end', cancel)
       cancel()
     }
   }, [])
@@ -24,9 +27,10 @@ function Speech({ pdfText, pageNum }) {
 
   // 语音播报
   const speech = () => {
-    const speech = new SpeechSynthesisUtterance()
-    speech.text = pdfText
-    speechSynthesis.speak(speech);
+    const speechInstance = new SpeechSynthesisUtterance()
+    speechInstance.text = pdfText
+    speechSynthesis.speak(speechInstance);
+    speechInstance.addEventListener('end', cancel)
     setCurrentStatus(1)
   }
 

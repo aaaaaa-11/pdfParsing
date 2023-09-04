@@ -119,7 +119,7 @@ function PDF({ pdfUrl, closePDF }) {
         }
         <canvas id="pdf-container"></canvas>
       </div>
-      <Footer ref={pageNumRef} changePageNum={changePageNum} setPageNum={setPageNum} pages={pages} />
+      <Footer ref={pageNumRef} changePageNum={changePageNum} setPageNum={setPageNum} pages={pages} hasPDF={hasPDF} />
     </div>
   );
 }
