@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 import classes from './pdf-list.module.scss';
+import gl from '@/global'
 
 function PDFList(props) {
   const [pdfList, setPdfList] = useState([])
 
   useEffect(() => {
+    const prefix = gl.isDev ? '' : '/pdfParsing'
     setPdfList(() => [
       {
         id: 1,
         title: '测试.pdf',
-        url: '/pdfParsing/测试.pdf'
+        url: prefix + '/测试.pdf'
       },
     ])
   }, [])
