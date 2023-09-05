@@ -15,6 +15,12 @@ function Speech({ pdfText, pageNum }) {
   const [currentStatus, setCurrentStatus] = useState(0)
 
   useEffect(() => {
+    return () => {
+      cancel()
+    }
+  }, [])
+
+  useEffect(() => {
     cancel()
   }, [pageNum])
 
@@ -22,10 +28,12 @@ function Speech({ pdfText, pageNum }) {
   const speech = () => {
     if (!speechInstance) {
       speechInstance = new SpeechSynthesisUtterance()
-      // 播报结束后，重设状态
-      // 注意：暂停后一段时间，也会触发end事件
+      // 播报结束后，触发end事件，重设状态
+      // 注意：暂停后一段时间，也会触发end事件（这里默认lang="zh-CN"）
+      // const voice = ['en-US', 'en-GB', 'en', 'zh-CN', 'zh-HK', 'zh-TW'][0]
+      // speechInstance.lang = voice; // 只有设置lang = 'en-US'，暂停后不会触发end事件
       speechInstance.onend = (event) => {
-        setCancelStatus()
+        cancel()
       }
     }
     speechInstance.text = pdfText
@@ -47,10 +55,6 @@ function Speech({ pdfText, pageNum }) {
   // 取消播放
   function cancel() {
     speechSynthesis.cancel()
-    setCancelStatus()
-  }
-
-  function setCancelStatus () {
     setCurrentStatus(0)
   }
 
