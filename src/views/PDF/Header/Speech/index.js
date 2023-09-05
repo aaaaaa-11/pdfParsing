@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 import classes from './speech.module.scss'
 
 /* 语音状态说明：
@@ -10,7 +10,7 @@ import classes from './speech.module.scss'
 */
 
 function Speech({ pdfText, pageNum }) {
-  let speechInstance;
+  let speechInstance
 
   const [currentStatus, setCurrentStatus] = useState(0)
 
@@ -37,7 +37,7 @@ function Speech({ pdfText, pageNum }) {
       }
     }
     speechInstance.text = pdfText
-    speechSynthesis.speak(speechInstance);
+    speechSynthesis.speak(speechInstance)
     setCurrentStatus(1)
   }
 
@@ -62,22 +62,38 @@ function Speech({ pdfText, pageNum }) {
   let speechBtn
 
   if (currentStatus === 0) {
-    speechBtn = <button className='btn btn-green' disabled={!pdfText} onClick={speech}>语音播报</button>
+    speechBtn = (
+      <button className="btn btn-green" disabled={!pdfText} onClick={speech}>
+        语音播报
+      </button>
+    )
   }
 
   if (currentStatus === 1) {
-    speechBtn = <button className='btn btn-red' onClick={pause}>暂停</button>
+    speechBtn = (
+      <button className="btn btn-red" onClick={pause}>
+        暂停
+      </button>
+    )
   }
   if (currentStatus === 2) {
-    speechBtn = <button className='btn btn-yellow' onClick={resume}>继续</button>
+    speechBtn = (
+      <button className="btn btn-yellow" onClick={resume}>
+        继续
+      </button>
+    )
   }
 
   return (
     <div className={classes.speech}>
-      { speechBtn }
-      { [1, 2, 3].includes(currentStatus) ? <button className={`btn btn-white ${classes.cancel}`} onClick={cancel}>取消</button> : null}
+      {speechBtn}
+      {[1, 2, 3].includes(currentStatus) ? (
+        <button className={`btn btn-white ${classes.cancel}`} onClick={cancel}>
+          取消
+        </button>
+      ) : null}
     </div>
-  );
+  )
 }
 
-export default Speech;
+export default Speech

@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import classes from './pdf-list.module.scss';
+import { useEffect, useState } from 'react'
+import classes from './pdf-list.module.scss'
 import gl from '@/global'
 
 function PDFList(props) {
@@ -11,7 +11,7 @@ function PDFList(props) {
       {
         id: 1,
         title: '测试.pdf',
-        url: prefix + '/测试.pdf'
+        url: prefix + '/测试.pdf',
       },
     ])
   }, [])
@@ -22,15 +22,17 @@ function PDFList(props) {
 
   return (
     <ul className={classes.pdfs}>
-      {
-        pdfList.map(p => (
-          <li className={classes['pdfs-item']} key={p.id} onClick={() => openPDF(p.url)}>
-            { p.title }
-          </li>
-        ))
-      }
+      {pdfList.map((p) => (
+        <li
+          className={classes['pdfs-item']}
+          key={p.id}
+          onClick={() => openPDF(p.url)}
+        >
+          {p.title}
+        </li>
+      ))}
     </ul>
-  );
+  )
 }
 
-export default PDFList;
+export default PDFList

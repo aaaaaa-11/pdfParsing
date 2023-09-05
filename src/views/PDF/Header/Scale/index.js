@@ -19,11 +19,29 @@ const Scale = () => {
 
   return (
     <div className={classes.scale}>
-      <span className={classes['zoom-in']} onClick={() => setScaleWithCheck(scale + 10)}>+</span>
-      <span className={classes['scale-input']}>
-        <input className='input' ref={scaleRef} type="number" min="0" max="1000" onBlur={setScale} />%
+      <span
+        className={classes['zoom-in']}
+        onClick={() => setScaleWithCheck(scale + 10)}
+      >
+        +
       </span>
-      <span className={classes['zoom-out']} onClick={() => setScaleWithCheck(scale - 10)}>-</span>
+      <span className={classes['scale-input']}>
+        <input
+          className="input"
+          ref={scaleRef}
+          type="number"
+          min="0"
+          max="1000"
+          onBlur={setScale}
+        />
+        %
+      </span>
+      <span
+        className={classes['zoom-out']}
+        onClick={() => setScaleWithCheck(scale - 10)}
+      >
+        -
+      </span>
     </div>
   )
 }

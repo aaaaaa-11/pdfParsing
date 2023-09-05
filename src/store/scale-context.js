@@ -1,5 +1,5 @@
 /* PDF页面缩放context */
-import React, { useState } from "react"
+import React, { useState } from 'react'
 
 const MAXSCALE = 1000
 
@@ -8,7 +8,7 @@ const MINSCALE = 0
 const ScaleContext = React.createContext({
   scale: 100,
   setScaleWithCheck: () => {},
-  changeScale: () => {}
+  changeScale: () => {},
 })
 
 export const ScaleContextProvider = (props) => {
@@ -35,7 +35,7 @@ export const ScaleContextProvider = (props) => {
   const contextValue = {
     scale,
     setScaleWithCheck,
-    changeScale
+    changeScale,
   }
 
   return (

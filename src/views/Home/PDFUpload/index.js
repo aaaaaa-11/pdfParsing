@@ -1,9 +1,9 @@
-import { useRef, useState } from 'react';
-import classes from './pdf-upload.module.scss';
+import { useRef, useState } from 'react'
+import classes from './pdf-upload.module.scss'
 
 function Upload(props) {
-  const [input, setInput] = useState();
-  const [fileName, setFileName] = useState('');
+  const [input, setInput] = useState()
+  const [fileName, setFileName] = useState('')
 
   const inputRef = useRef()
 
@@ -14,9 +14,9 @@ function Upload(props) {
     const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onload = (res) => {
-      setInput(res.target.result);
+      setInput(res.target.result)
     }
-  };
+  }
 
   const upload = () => {
     inputRef.current.click()
@@ -25,14 +25,26 @@ function Upload(props) {
   return (
     <>
       <div className={classes['upload']} onClick={upload}>
-        <p className={classes[fileName ? '' : 'upload-info']}>{fileName || '.pdf'}</p>
-        <input type="file" accept='.pdf' className={classes['upload-file']} ref={inputRef} onChange={changeInput}></input>
+        <p className={classes[fileName ? '' : 'upload-info']}>
+          {fileName || '.pdf'}
+        </p>
+        <input
+          type="file"
+          accept=".pdf"
+          className={classes['upload-file']}
+          ref={inputRef}
+          onChange={changeInput}
+        ></input>
       </div>
-      <button className={`btn btn-blue ${classes['view-btn']}`} disabled={!input} onClick={() => props.openPDF(input)}>
+      <button
+        className={`btn btn-blue ${classes['view-btn']}`}
+        disabled={!input}
+        onClick={() => props.openPDF(input)}
+      >
         查 看
       </button>
     </>
-  );
+  )
 }
 
-export default Upload;
+export default Upload

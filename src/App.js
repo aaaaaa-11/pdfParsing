@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import Home from './views/Home';
-import PDF from './views/PDF';
+import { useState } from 'react'
+import Home from './views/Home'
+import PDF from './views/PDF'
 
 function App() {
   const [pdfUrl, setpdfUrl] = useState()
   const [showPdf, setShowPdf] = useState(false)
 
   const openPDF = (url) => {
-    setShowPdf(true);
+    setShowPdf(true)
     setpdfUrl(url)
   }
 
@@ -17,11 +17,13 @@ function App() {
 
   return (
     <>
-      {
-        showPdf ? <PDF pdfUrl={pdfUrl} closePDF={closePDF} /> : <Home openPDF={openPDF} />
-      }
+      {showPdf ? (
+        <PDF pdfUrl={pdfUrl} closePDF={closePDF} />
+      ) : (
+        <Home openPDF={openPDF} />
+      )}
     </>
-  );
+  )
 }
 
-export default App;
+export default App
