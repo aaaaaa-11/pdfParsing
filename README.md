@@ -14,9 +14,7 @@ In the project directory, you can run:
 
 运行批处理命令：把项目部署到线上
 
-[预览（https）](https://aaaaaa-11.github.io/pdfParsing/)
-
-[预览地址2（http）](http://dongpeipei.top/pdfParsing/)
+[预览地址](http://dongpeipei.top/pdfParsing/)
 
 ### `npm start`
 
